@@ -1,0 +1,67 @@
+<div>
+  <h1>Editar libro</h1>
+  <div class="mt-5 alert alert-danger" *ngIf="errors">
+    Han sucedido los siguientes errores:
+   <ul>
+    <li *ngFor="let error of errors">{{error}}</li>
+   </ul>
+  </div>
+
+  <form class="mt-5" [formGroup]="form" (ngSubmit)="update()" autocomplete="off" *ngIf="form">
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label >Título</mat-label>
+      <input matInput  type="text" placeholder="Título" formControlName="title" (keyup)="createSlug()">
+      <mat-error>
+        <ng-container  *ngIf="controlHasError('title','required')">
+          Este campo es obligatorio
+        </ng-container>
+        <ng-container  *ngIf="controlHasError('title','minlength')">
+          Debe tener al menos 3 caracteres
+        </ng-container>
+        <ng-container  *ngIf="form.controls['title'].hasError('maxlength')">
+          Debe tener 100 caracteres como máximo
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label>Slug</mat-label>
+      <input matInput  type="text" placeholder="Slug" formControlName="slug">
+      <mat-error>
+        <ng-container  *ngIf="controlHasError('slug','required')">
+          Este campo es obligatorio
+        </ng-container>
+        <ng-container  *ngIf="controlHasError('slug','pattern')">
+          El valor es invalido
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label >Descripción</mat-label>
+      <textarea matInput placeholder="Descripción" formControlName="desc"></textarea>
+      <mat-error>
+      <ng-container  *ngIf="controlHasError('desc','required')">
+        Este campo es obligatorio
+      </ng-container>
+    </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label for="precio">Precio</mat-label>
+      <input matInput type="number" step="0.01" placeholder="Precio"  formControlName="price">
+      <mat-error>
+        <ng-container  *ngIf="controlHasError('price','required')">
+          Este campo es obligatorio
+        </ng-container>
+        <ng-container  *ngIf="controlHasError('price','min')">
+          El valor debe ser 0 como mínimo
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+    <div class="text-end">
+      <button mat-button routerLink="/admin/books">Cancelar</button>
+      <button mat-raised-button color="primary">Actualizar libro</button>
+    </div>
+  </form>
+</div>
