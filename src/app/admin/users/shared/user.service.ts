@@ -23,7 +23,7 @@ export class UserService {
     return this.http.put<User>(`http://localhost:9090/api/users/${id}`,user);
   }
   delete(id:number){
-
+    return this.http.delete(`http://localhost:9090/api/users/${id}`);
   }
 
 }
