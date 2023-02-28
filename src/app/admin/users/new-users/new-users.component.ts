@@ -26,6 +26,14 @@ export class NewUsersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+  }
+  controlHasError(control: string, error: string): boolean {
+    //dirty/touched muestra los errores solo cuando el usuario haya usado los campos
+    return (
+      this.form.controls[control].hasError(error) &&
+      this.form.controls[control].touched
+    );
   }
 
   create(){

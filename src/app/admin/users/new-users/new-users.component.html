@@ -1,51 +1,62 @@
 <div>
   <h1>Nuevo Usuario</h1>
-  <div class="mt-5 alert alert-danger">
-    {{form.value|json}}
-  </div>
 
-  <form class="mt-5" [formGroup]="form" (ngSubmit)="create()">
-    <div class="mb-2">
-      <label for="title">First Name</label>
-      <input id="title" type="text" placeholder="First Name" class="form-control" formControlName="firstName">
-      <div class="invalid-feedback"></div>
-    </div>
+  <form class="mt-5" [formGroup]="form" (ngSubmit)="create()" autocomplete="off">
 
-    <div class="mb-2">
-      <label for="slug">Last Name</label>
-      <input id="slug" type="text" placeholder="Last Name" class="form-control" formControlName="lastName">
-      <div class="invalid-feedback"></div>
-    </div>
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input matInput  type="text" placeholder="First Name"  formControlName="firstName">
+      <mat-error>
+        <ng-container  *ngIf="form.controls['firstName'].hasError('required')">
+          El nombre es obligatorio
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
 
-    <div class="mb-2">
-      <label for="precio">Email</label>
-      <input id="precio" type="email"  placeholder="Email" class="form-control" formControlName="email">
-      <div class="invalid-feedback"></div>
-    </div>
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label >Last Name</mat-label>
+      <input matInput type="text" placeholder="Last Name" formControlName="lastName">
+     <mat-error>
+      <ng-container  *ngIf="form.controls['firstName'].hasError('required')">
+        El apellido es obligatorio
+      </ng-container>
+    </mat-error>
+    </mat-form-field>
 
-    <div class="mb-2">
-      <label for="precio">Password</label>
-      <input id="precio" type="password" placeholder="Password" class="form-control" formControlName="password">
-      <div class="invalid-feedback"></div>
-    </div>
-<!--
-    <div class="mb-2">
-      <label for="precio">Rol</label>
-      <input id="precio" type="text" placeholder="Role" class="form-control" formControlName="role">
-      <div class="invalid-feedback"></div>
-    </div>
-    -->
-    <div class="mb-2">
-      <label for="role">Rol:</label>
-      <select class="form-select" aria-label="Default select example" formControlName="role">
-        <option value="ADMIN" selected>Admin</option>
-        <option value="USER">User</option>
-      </select>
-    </div>
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label for="precio">Email</mat-label>
+      <input matInput id="precio" type="email"  placeholder="Email" formControlName="email">
+      <mat-error>
+      <ng-container  *ngIf="controlHasError('email','pattern')">
+        El formato del email no es válido
+      </ng-container>
+    </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mb-2 w-100" appearance="outline">
+      <mat-label >Password</mat-label>
+      <input matInput type="password" placeholder="Password"  formControlName="password">
+      <mat-error>
+        <ng-container  *ngIf="controlHasError('password','required')">
+          El password es obligatorio
+        </ng-container>
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill" class="mb-2 w-50">
+      <mat-label>Seleccionar rol</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="ADMIN">Admin</mat-option>
+        <mat-option value="USER">User</mat-option>
+      </mat-select>
+
+      <mat-hint align="end"></mat-hint>
+    </mat-form-field>
 
     <div class="text-end">
-      <button class="btn btn-light" routerLink="/admin/users">Cancelar</button>
-      <button class="btn btn-primary ms-2">Crear Usuario</button>
+      <button mat-button routerLink="/admin/users">Cancelar</button>
+      <button mat-raised-button color="primary">Crear Usuario</button>
     </div>
   </form>
 </div>
