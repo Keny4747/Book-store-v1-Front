@@ -35,7 +35,7 @@ export class NewUsersComponent implements OnInit {
     }
     this.userService.create(this.form.value)
     .subscribe(user=>{
-      this.router.navigate(['/users'])
+      this.router.navigate(['/admin/users'])
     })
   }
 }

@@ -45,7 +45,7 @@ export class EditUserComponent implements OnInit {
     this.userService.update(this.userId!,this.form!.value)
     .subscribe({
       next:(user)=>{
-        this.router.navigate(['/users']);
+        this.router.navigate(['/admin/users']);
       },
       error:(error=>{
         this.errors=error.error.errors;

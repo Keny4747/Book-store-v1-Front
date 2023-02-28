@@ -1,6 +1,6 @@
 <h1>Lista de Usuarios</h1>
 <div class="text-end">
-  <button class="btn btn-primary" routerLink="/users/new">
+  <button class="btn btn-primary" routerLink="/admin/users/new">
     Nuevo Usuario
   </button>
 </div>
@@ -25,7 +25,7 @@
       <td>{{user.email}}</td>
       <td>{{user.role}}</td>
       <td>
-        <a href="#" [routerLink]="['/users',user.id]">Editar</a>
+        <a href="#" [routerLink]="['/admin/users',user.id]">Editar</a>
         <a href="#" class="ms-2">Eliminar</a>
       </td>
     </tr>
