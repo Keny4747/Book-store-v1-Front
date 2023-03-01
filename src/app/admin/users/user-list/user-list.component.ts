@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../shared/user.model';
+import { User, UserPage } from '../shared/user.model';
 import { UserService } from '../shared/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-user-list',
@@ -10,11 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 })
 export class UserListComponent implements OnInit {
-
-  users:User[]=[];
+  userPage?:UserPage;
 
   displayedColumns:string [] = ['firstName','lastName','fullName','email','role','actions'];
-  constructor(private userService:UserService,private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private userService:UserService) { }
 
   ngOnInit(): void {
     this.getUsers();
@@ -23,8 +23,8 @@ export class UserListComponent implements OnInit {
 
   getUsers(){
     this.userService.paginate()
-    .subscribe(users=>{
-      this.users =users;
+    .subscribe((userPage)=>{
+      this.userPage =userPage;
     });
   }
   deleteUser(user:User){
@@ -33,5 +33,16 @@ export class UserListComponent implements OnInit {
         this.getUsers();
       });
     }
+  }
+
+  paginateUsers(event:PageEvent){
+    const page = event.pageIndex;
+    const size = event.pageSize;
+
+    this.userService.paginate(size,page)
+    .subscribe(userPage =>{
+      this.userPage = userPage;
+    })
+
   }
 }
