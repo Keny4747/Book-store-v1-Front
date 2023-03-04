@@ -29,6 +29,8 @@ export class EditBookComponent implements OnInit {
         slug:[book.slug,[Validators.required,Validators.pattern('[a-z0-9-]+')]],
         desc:[book.desc,[Validators.required]],
         price:[book.price,[Validators.required,Validators.minLength(0)]],
+        coverPath:[book.coverPath,[Validators.required]],
+        filePath:[book.filePath,[Validators.required]]
       })
     })
 
@@ -53,6 +55,21 @@ export class EditBookComponent implements OnInit {
       })
   })
   }
+
+  uploadFile(event:any, control:string){
+    const file = event.target.files[0];
+    if(file){
+      //formData:
+      const formData = new FormData();
+      formData.append('file',file);
+
+      this.bookService.uploadFile(formData)
+      .subscribe(response=>{
+        this.form!.controls[control].setValue(response.path);
+      })
+    }
+  }
+
   createSlug() {
     const slug = this.form!.controls['title'].value
       .toLowerCase()

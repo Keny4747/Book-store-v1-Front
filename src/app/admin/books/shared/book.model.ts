@@ -18,6 +18,8 @@ export interface Book {
   slug:      string;
   desc:      null | string;
   price:     number;
+  coverPath:string | null;
+  filePath:string | null;
   createdAt: Date;
   updatedAt: Date | null;
 }

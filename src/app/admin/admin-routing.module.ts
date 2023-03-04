@@ -6,25 +6,32 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { NewUsersComponent } from './users/new-users/new-users.component';
 import { EditBookComponent } from './books/edit-book/edit-book.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 
 const routes: Routes = [
   {
-    path:'books',component:BookListComponent
-  },
-  {
-    path:'books/new',component:NewBookComponent
-  },
-  {
-    path:'books/:id',component:EditBookComponent
-  },
-  {
-    path:'users',component:UserListComponent
-  },
-  {
-    path:'users/new',component:NewUsersComponent
-  },
-  {
-    path:'users/:id',component:EditUserComponent
+    path:'',
+    component:AdminLayoutComponent,
+    children:[
+      {
+        path:'books',component:BookListComponent
+      },
+      {
+        path:'books/new',component:NewBookComponent
+      },
+      {
+        path:'books/:id',component:EditBookComponent
+      },
+      {
+        path:'users',component:UserListComponent
+      },
+      {
+        path:'users/new',component:NewUsersComponent
+      },
+      {
+        path:'users/:id',component:EditUserComponent
+      }
+    ]
   }
 ];
 

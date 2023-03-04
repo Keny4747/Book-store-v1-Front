@@ -11,6 +11,8 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { NewUsersComponent } from './users/new-users/new-users.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { SharedModule } from '../shared/shared.module';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 
 
 @NgModule({
@@ -20,13 +22,15 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
     NewBookComponent,
     UserListComponent,
     NewUsersComponent,
-    EditUserComponent
+    EditUserComponent,
+    AdminLayoutComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    SharedModule
   ]
 })
 export class AdminModule { }

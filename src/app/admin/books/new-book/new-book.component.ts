@@ -18,6 +18,8 @@ export class NewBookComponent implements OnInit {
     slug: [, [Validators.required, Validators.pattern('[a-z0-9-]+')]],
     desc: [, [Validators.required]],
     price: [, [Validators.required, Validators.minLength(0)]],
+    coverPath:[,[Validators.required]],
+    filePath:[,[Validators.required]]
   });
 
   constructor(
@@ -45,6 +47,19 @@ export class NewBookComponent implements OnInit {
 
       this.form!.controls['slug'].setValue(slug);
   }
+  uploadFile(event:any, control:string){
+    const file = event.target.files[0];
+    if(file){
+      //formData:
+      const formData = new FormData();
+      formData.append('file',file);
+
+      this.bookService.uploadFile(formData)
+      .subscribe(response=>{
+        this.form!.controls[control].setValue(response.path);
+      })
+    }
+  }
   create() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -59,4 +74,5 @@ export class NewBookComponent implements OnInit {
       },
     });
   }
+
 }
