@@ -9,7 +9,8 @@ import { CartService } from '../shared/cart.service';
 })
 export class BooksComponent implements OnInit {
 
-  bookPage?:BookPage;
+  books:Book[]=[];
+  page:number=0;
 
   constructor(
     private homeService:HomeService,
@@ -19,7 +20,8 @@ export class BooksComponent implements OnInit {
   ngOnInit(): void {
     this.homeService.getBooks()
     .subscribe(bookPage=>{
-      this.bookPage=bookPage;
+      this.books=bookPage.content;
+      this.page=bookPage.number;
     })
   }
 
@@ -33,5 +35,12 @@ export class BooksComponent implements OnInit {
 
   bookExistInCart(book:Book):boolean{
     return this.cartService.itemAlreadyExists(book);
+  }
+  loadMoreBooks(){
+    this.homeService.getBooks(this.page + 1)
+    .subscribe(bookPage=>{
+      this.books.push(...bookPage.content);
+      this.page = bookPage.number;
+    })
   }
 }
