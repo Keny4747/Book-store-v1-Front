@@ -25,6 +25,6 @@ export class HomeService {
     return this.http.get<BookPage>(`${environment.apiBase}/books`,{params})
   }
   getBook(slug: string) :Observable<Book>{
-    return this.http.get<Book>(`${environment.apiBase}/books/${slug}`)
+    return this.http.get<Book>(`${environment.apiBase}/books-api/${slug}`)
   }
 }

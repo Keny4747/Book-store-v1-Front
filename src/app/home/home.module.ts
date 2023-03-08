@@ -7,6 +7,8 @@ import { MaterialModule } from '../material/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { BooksComponent } from './books/books.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { BookDetailComponent } from './book-detail/book-detail.component';
+import { CartComponent } from './cart/cart.component';
 
 
 
@@ -14,7 +16,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   declarations: [
     IndexComponent,
     HomeLayoutComponent,
-    BooksComponent
+    BooksComponent,
+    BookDetailComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,

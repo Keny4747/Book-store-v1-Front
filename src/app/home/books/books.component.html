@@ -8,7 +8,7 @@
           <img mat-card-image  [src]="book.coverPath |apiImg" alt="">
 
         <mat-card-content>
-          <h4>{{book.title}}</h4>
+          <a class="h4" [routerLink]="['/books',book.slug]">{{book.title}}</a>
           <p>{{book.desc | slice:0:100}}...</p>
         </mat-card-content>
         <mat-card-actions>
