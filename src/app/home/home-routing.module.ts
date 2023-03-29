@@ -5,6 +5,7 @@ import { IndexComponent } from './index/index.component';
 import { BooksComponent } from './books/books.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { CartComponent } from './cart/cart.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,9 @@ const routes: Routes = [
       },
       {
         path:'cart',component:CartComponent
+      },
+      {
+        path:'order/:id',component:OrderDetailComponent
       }
     ]
   }
