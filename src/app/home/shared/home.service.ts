@@ -27,4 +27,11 @@ export class HomeService {
   getBook(slug: string) :Observable<Book>{
     return this.http.get<Book>(`${environment.apiBase}/books-api/${slug}`)
   }
+  createPaypalCheckout(bookIds:number []):Observable<any>{
+    const returnUrl = 'http://localhost:4200/cart'
+    return this.http.post(`${environment.apiBase}/checkout/paypal/create?returnUrl=${returnUrl}`,bookIds);
+  }
+  capturePaypalCheckout(token:string):Observable<any>{
+    return this.http.post(`${environment.apiBase}/checkout/paypal/capture?token=${token}`,null);
+  }
 }

@@ -28,7 +28,11 @@
       <h3 class="fw-bold">Resumen</h3>
       <h5 class="fw-bold text-end">Total</h5>
       <div class="fs-2 fw-bold text-end my-3">{{total|currency}}</div>
-      <button class="w-100" mat-raised-button color="primary">
+      <button class="w-100" mat-raised-button color="primary"
+        [class.spinner]="loading"
+        [disabled]="loading"
+        (click)="pay()"
+      >
         <mat-icon>paypal</mat-icon>
         Pagar con PayPal
       </button>
