@@ -36,6 +36,11 @@ export class HomeService {
     return this.http.post(`${environment.apiBase}/checkout/paypal/capture?token=${token}`,null);
   }
   getOrder(id:number):Observable<SalesOrder>{
-    return this.http.get<SalesOrder>(`${environment.apiBase}/orders/${id}`)
+    return this.http.get<SalesOrder>(`${environment.apiBase}/orders/${id}`);
+  }
+  downloadBookFromSalesItem(orderId:number,itemId:number):Observable<any>{
+    return this.http.get(`${environment.apiBase}/orders/${orderId}/items/${itemId}/book/download`,{
+      responseType:'blob'
+    });
   }
 }

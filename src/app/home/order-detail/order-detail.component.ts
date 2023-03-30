@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../shared/home.service';
 import { ActivatedRoute } from '@angular/router';
-import { SalesOrder } from '../shared/sales-order.model';
+import { SalesItem, SalesOrder } from '../shared/sales-order.model';
 
 @Component({
   selector: 'app-order-detail',
@@ -25,5 +25,23 @@ export class OrderDetailComponent implements OnInit{
     })
   }
 
+  downloadBook(item:SalesItem){
+    this.homeService.downloadBookFromSalesItem(this.salesOrder!.id,item.id)
+    .subscribe(blob=>{
+      const _blob = new Blob([blob], {
+        type:'application/pdf, chartset=utf-8'
+      });
+
+      const a = document.createElement('a');
+      const url = window.URL.createObjectURL(_blob);
+
+      a.href  = url;
+      a.download = `${item.book.title}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      item.downloadsAvaliable -=1;
+    })
+  }
 
 }
