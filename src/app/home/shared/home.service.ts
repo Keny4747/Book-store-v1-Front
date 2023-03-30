@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Book, BookPage } from 'src/app/admin/books/shared/book.model';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { SalesOrder } from './sales-order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,8 @@ export class HomeService {
   }
   capturePaypalCheckout(token:string):Observable<any>{
     return this.http.post(`${environment.apiBase}/checkout/paypal/capture?token=${token}`,null);
+  }
+  getOrder(id:number):Observable<SalesOrder>{
+    return this.http.get<SalesOrder>(`${environment.apiBase}/orders/${id}`)
   }
 }
