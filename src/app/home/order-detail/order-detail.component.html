@@ -12,13 +12,15 @@
             <div>
               <div class="fw-bold">{{ item.book.title }}</div>
               <p>{{ item.price | currency }}</p>
-              <button mat-button color="primary" (click)="downloadBook(item)">
+
+              <button mat-button color="primary" (click)="downloadBook(item)"
+              [disabled]="">
                 <mat-icon>file_download</mat-icon> Descargar
               </button>´
 
               <span class="ms-2">
                 {{item.downloadsAvaliable}}
-                descargas disponibles
+                {{item.downloadsAvaliable | i18nPlural:{'=1':'descarga disponible', 'other':'descargas disponibles'} }}
               </span>
             </div>
 
