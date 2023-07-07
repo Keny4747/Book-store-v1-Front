@@ -9,30 +9,34 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:HomeLayoutComponent,
-    children:[
+    path: '',
+    component: HomeLayoutComponent,
+    children: [
       {
-        path:'',component:IndexComponent
+        path: '',
+        component: IndexComponent
       },
       {
-        path:'books',component:BooksComponent
+        path: 'books',
+        component: BooksComponent
       },
       {
-        path:'books/:slug',component:BookDetailComponent
+        path: 'books/:slug',
+        component: BookDetailComponent
       },
       {
-        path:'cart',component:CartComponent
+        path: 'cart',
+        component: CartComponent
       },
       {
-        path:'order/:id',component:OrderDetailComponent
+        path: 'orders/:id',
+        component: OrderDetailComponent
       }
     ]
   }
 ];
 
 @NgModule({
-  //al ser un modulo hijo usarmos forChild
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })

@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Book, BookPage } from 'src/app/admin/books/shared/book.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Book, BookPage } from '../../admin/books/shared/book.model';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { SalesOrder } from './sales-order.model';
@@ -11,36 +11,42 @@ import { SalesOrder } from './sales-order.model';
 export class HomeService {
 
   constructor(
-    private http:HttpClient
+    private http: HttpClient
   ) { }
 
-  getLastBooks():Observable<Book[]>{
-    return this.http.get<Book[]>(`${environment.apiBase}/last-books`)
+  getLastBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>(`${environment.apiBase}/last-books`);
   }
-  getBooks(page: number = 0, size: number = 6):Observable<BookPage> {
-    let params = new HttpParams();
-    params = params.append('size',size);
-    params = params.append('page',page);
-    params = params.append('sort','createdAt,desc');
 
-    return this.http.get<BookPage>(`${environment.apiBase}/books`,{params})
+  getBooks(page: number = 0, size: number = 6): Observable<BookPage> {
+    let params = new HttpParams();
+    params = params.append('size', size);
+    params = params.append('page', page);
+    params = params.append('sort', 'createdAt,desc');
+
+    return this.http.get<BookPage>(`${environment.apiBase}/books`, { params });
   }
-  getBook(slug: string) :Observable<Book>{
-    return this.http.get<Book>(`${environment.apiBase}/books-api/${slug}`)
+
+  getBook(slug: string): Observable<Book> {
+    return this.http.get<Book>(`${environment.apiBase}/books/${slug}`);
   }
-  createPaypalCheckout(bookIds:number []):Observable<any>{
+
+  createPaypalCheckout(bookIds: number[]): Observable<any> {
     const returnUrl = 'http://localhost:4200/cart'
-    return this.http.post(`${environment.apiBase}/checkout/paypal/create?returnUrl=${returnUrl}`,bookIds);
+    return this.http.post(`${environment.apiBase}/checkout/paypal/create?returnUrl=${returnUrl}`, bookIds);
   }
-  capturePaypalCheckout(token:string):Observable<any>{
-    return this.http.post(`${environment.apiBase}/checkout/paypal/capture?token=${token}`,null);
+
+  capturePaypalCheckout(token: string): Observable<any> {
+    return this.http.post(`${environment.apiBase}/checkout/paypal/capture?token=${token}`, null);
   }
-  getOrder(id:number):Observable<SalesOrder>{
+
+  getOrder(id: number): Observable<SalesOrder> {
     return this.http.get<SalesOrder>(`${environment.apiBase}/orders/${id}`);
   }
-  downloadBookFromSalesItem(orderId:number,itemId:number):Observable<any>{
-    return this.http.get(`${environment.apiBase}/orders/${orderId}/items/${itemId}/book/download`,{
-      responseType:'blob'
+
+  downloadBookFromSalesItem(orderId: number, itemId: number): Observable<any> {
+    return this.http.get(`${environment.apiBase}/orders/${orderId}/items/${itemId}/book/download`, {
+      responseType: 'blob'
     });
   }
 }

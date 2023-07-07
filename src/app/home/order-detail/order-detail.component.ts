@@ -1,47 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../shared/home.service';
 import { ActivatedRoute } from '@angular/router';
-import { SalesItem, SalesOrder } from '../shared/sales-order.model';
+import { SalesOrder, SalesItem } from '../shared/sales-order.model';
 
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html'
 })
-export class OrderDetailComponent implements OnInit{
-
-  salesOrder? : SalesOrder;
+export class OrderDetailComponent implements OnInit {
+  salesOrder?: SalesOrder;
 
   constructor(
     private homeService: HomeService,
     private route: ActivatedRoute
-  ){}
+  ) { }
 
   ngOnInit(): void {
     const orderId = parseInt(this.route.snapshot.paramMap.get('id')!);
 
     this.homeService.getOrder(orderId)
-    .subscribe(salesOrder =>{
-      this.salesOrder=salesOrder
-    })
+      .subscribe(salesOrder => {
+        this.salesOrder = salesOrder;
+      })
   }
 
-  downloadBook(item:SalesItem){
-    this.homeService.downloadBookFromSalesItem(this.salesOrder!.id,item.id)
-    .subscribe(blob=>{
-      const _blob = new Blob([blob], {
-        type:'application/pdf, chartset=utf-8'
-      });
+  downloadBook(item: SalesItem) {
+    this.homeService.downloadBookFromSalesItem(this.salesOrder!.id, item.id)
+      .subscribe(blob => {
+        const _blob = new Blob([blob], {
+          type: 'application/pdf; chartset=utf-8'
+        });
 
-      const a = document.createElement('a');
-      const url = window.URL.createObjectURL(_blob);
+        const a = document.createElement('a');
+        const url = window.URL.createObjectURL(_blob);
 
-      a.href  = url;
-      a.download = `${item.book.title}.pdf`;
-      a.click();
-      URL.revokeObjectURL(url);
+        a.href = url;
+        a.download = `${item.book.title}.pdf`;
+        a.click();
+        URL.revokeObjectURL(url);
 
-      item.downloadsAvaliable -=1;
-    })
+        item.downloadsAvaliable -= 1;
+      })
   }
 
 }
